@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Full Stack App",
+  "name": "Full Stack App with REST API",
   "icons": [
     {
       "src": "favicon.ico",
