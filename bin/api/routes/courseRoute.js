@@ -40,7 +40,13 @@ router.get('/courses/:id', MW.asyncHandler(async (req, res) => {
     }]
   });
 
-  res.status(200).json(course);
+  if (course === null) {
+    res.status(404).json({
+      message: 'Sorry we cannot find that course.'
+    });
+  } else {
+    res.status(200).json(course);
+  }
 
 }));
 
