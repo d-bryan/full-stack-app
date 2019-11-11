@@ -17,8 +17,7 @@ router.get('/users', MW.authenticateUser, MW.asyncHandler(async (req, res) => {
 
   await res.json({
     currentUser: {
-      firstName: `${user.firstName}`,
-      lastName: `${user.lastName}`,
+      name: `${user.firstName} ${user.lastName}`,
       email: user.emailAddress
     }
   });

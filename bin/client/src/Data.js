@@ -86,7 +86,7 @@ export default class Data {
 
     // Validate the response from the API for the client
     if (response.status === 200) {
-      return response.json().then(data => data[0]);
+      return response.json();
     } else {
       throw new Error('There was an issue when attempting to get the course list.');
     }
@@ -102,7 +102,7 @@ export default class Data {
 
     // Validate the response from the API for the client
     if (response.status === 200) {
-      return response.json().then(data => data);
+      return response.json();
     } else if (response.status === 404) { 
       return response.json().then(data => {
         return data.message;
@@ -116,7 +116,7 @@ export default class Data {
    * POSTS New Course Data to the API
    * @param {Object} courseInfo - Course Object to be added to DB
    */
-  createCourse (courseInfo) {
+  async createCourse (courseInfo, username, password) {
     // Route && Request Parameters
     const response = await this.api('/courses', 'POST', courseInfo, true, { username, password });
 
@@ -141,7 +141,7 @@ export default class Data {
    * @param {Number} id - Course ID number
    * @param {Object} courseInfo - Request Body info
    */
-  updateCourse (id, courseInfo) {
+  async updateCourse (id, courseInfo, username, password) {
     // Route && Request Parameters
     const response = await this.api(`/courses/${id}`, 'PUT', courseInfo, true, { username, password });
 
@@ -166,7 +166,7 @@ export default class Data {
   }
 
 
-  deleteCourse (id) {
+  async deleteCourse (id, username, password) {
     // Route && Request Parameters
     const response = await this.api(`/courses/${id}`, 'DELETE', null, true, { username, password });
 
