@@ -8,7 +8,8 @@ export class Provider extends Component {
 
   // Set the state to the authenticated user or null
   state = {
-    authenticatedUser: Cookies.getJSON('authenticatedUser') || null
+    authenticatedUser: Cookies.getJSON('authenticatedUser') || null,
+    errors: [],
   }
 
   // Create a new instance of the Data Class
@@ -29,6 +30,9 @@ export class Provider extends Component {
         signOut: this.signOut,
         generateCourses: this.generateCourses,
         generateCourseDetail: this.generateCourseDetail,
+        createCourse: this.createCourse,
+        updateCourse: this.updateCourse,
+        deleteCourse: this.deleteCourse,
       },
     }
 
@@ -53,6 +57,8 @@ export class Provider extends Component {
           authenticatedUser: user,
         };
       });
+      user.data = btoa(`${username}:${password}`);
+      localStorage.setItem('user', JSON.stringify(user));
       Cookies.set('authenticatedUser', JSON.stringify(user), { expires: 1 });
     }
 
@@ -71,13 +77,51 @@ export class Provider extends Component {
     Cookies.remove('authenticatedUser');
   }
 
+  /**
+   * Retrieves a list of all the courses in the database
+   */  
   generateCourses = async() => {
     const courses = await this.data.getCourses();
     return courses;
   }
 
+  /**
+   * Retrieves an Idividual Course from the API
+   * @param {Number} id - Course ID Number
+   */  
   generateCourseDetail = async(id) => {
     const course = await this.data.getCourse(id);
+    return course;
+  }
+
+  /**
+   * POSTS New Course Data to the API
+   * @param {Object} courseInfo - Course Object to be added to DB
+   * @param {Object} credentials - Users credential login info
+   */  
+  createCourse = async(courseInfo, credentials) => {
+    const course = await this.data.createCourse(courseInfo, credentials);
+    return course;
+  }
+
+  /**
+   * PUT - Updates the currently selected course
+   * @param {Number} id - Course ID number
+   * @param {Object} courseInfo - Request Body info
+   * @param {Object} credentials - Users credential login info
+   */  
+  updateCourse = async(id, courseInfo, credentials) => {
+    const course = await this.data.updateCourse(id, courseInfo, credentials);
+    return course;
+  }
+
+  /**
+   * DELETE - Deletes a selected Course from the DB
+   * @param {Integer} id - Course ID Number
+   * @param {Object} credentials - Users credential login info
+   */  
+  deleteCourse = async(id, credentials) => {
+    const course = await this.data.deleteCourse(id, credentials);
     return course;
   }
 

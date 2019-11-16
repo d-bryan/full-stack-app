@@ -13,22 +13,25 @@ import Courses from './components/Courses';
 import CourseDetail from './components/CourseDetail';
 import CreateCourse from './components/CreateCourse';
 import UpdateCourse from './components/UpdateCourse';
+import DeleteCourse from './components/DeleteCourse';
 import NotFound from './components/NotFound';
 import UserSignUp from './components/UserSignUp';
 import UserSignIn from './components/UserSignIn';
 import UserSignOut from './components/UserSignOut';
-import Authenticated from './components/Authenticated';
 import withContext from './Context';
 import PrivateRoute from './PrivateRoute';
 
 // Add Context to Components
 const HeaderWithContext = withContext(Header);
-const AuthWithContext = withContext(Authenticated);
 const UserSignUpWithContext = withContext(UserSignUp);
 const UserSignInWithContext = withContext(UserSignIn);
 const UserSignOutWithContext = withContext(UserSignOut);
 const CoursesWithContext = withContext(Courses);
 const CourseDetailWithContext = withContext(CourseDetail);
+const CreateCourseWithContext = withContext(CreateCourse);
+const UpdateCourseWithContext = withContext(UpdateCourse);
+const DeleteCourseWithContext = withContext(DeleteCourse);
+
 
 
 export default () => (
@@ -38,17 +41,14 @@ export default () => (
       <hr/>
 
       <Switch>
-        <Route exact path="/" render={() => <Redirect to="/courses" />} />
+        <Redirect exact from="/" to="/courses" />
         
-        
-
-        
-        {/* <PrivateRoute path="/authenticated" component={AuthWithContext} />
-        <PrivateRoute path="/courses/create" component={CreateCourse} />
-        <PrivateRoute path="/courses/create" component={UpdateCourse} /> */}
+        <PrivateRoute path="/courses/create" component={CreateCourseWithContext} />
+        <PrivateRoute path="/courses/:id/update" component={UpdateCourseWithContext} />
+        <PrivateRoute path="/courses/:id/delete" component={DeleteCourseWithContext} />
         <Route path="/signin" component={UserSignInWithContext} />
         <Route path="/signup" component={UserSignUpWithContext} />
-        {/* <Route path="/signout" component={UserSignOutWithContext} /> */}
+        <Route path="/signout" component={UserSignOutWithContext} />
         <Route path="/courses/:id" component={CourseDetailWithContext} />
         <Route path="/courses" component={CoursesWithContext} />
         <Route component={NotFound} />

@@ -1,6 +1,7 @@
 import React from 'react';
 import Course from './Course';
 import NoCourses from '../NoCourses';
+import AddCourse from './AddCourse';
 
 export default (props) => {
 
@@ -23,6 +24,7 @@ export default (props) => {
   return (
     <div>
       { courses }
+      <AddCourse />
     </div>  
   );
 }

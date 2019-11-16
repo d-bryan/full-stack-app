@@ -6,6 +6,6 @@ export default ({ context }) => {
   context.actions.signOut();
 
   return (
-    <Redirect to="/courses" />
+    <Redirect to="/" />
   );
 }

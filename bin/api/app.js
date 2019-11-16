@@ -16,7 +16,11 @@ const enableGlobalErrorLogging = process.env.ENABLE_GLOBAL_ERROR_LOGGING === 'tr
 const app = express();
 
 // Enable all CORS Requests
-app.use(cors());
+app.use(cors(
+  {
+    exposedHeaders: ['*']
+  }
+));
 
 // test database connection
 (async () => {

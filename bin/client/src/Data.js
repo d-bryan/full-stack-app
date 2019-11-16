@@ -29,7 +29,15 @@ export default class Data {
 
     // If the path required credentials pass them in the header
     if (requiresAuth) {
-      const encodedCredentials = btoa(`${credentials.username}:${credentials.password}`);
+
+      let encodedCredentials = null;
+
+      if (credentials.email && credentials.password) {
+        encodedCredentials = btoa(`${credentials.email}:${credentials.password}`);
+      } else {
+        encodedCredentials = credentials;
+      }
+      // const encodedCredentials 
 
       options.headers['Authorization'] = `Basic ${encodedCredentials}`;
     }
@@ -43,15 +51,20 @@ export default class Data {
    * @param {Username} username - Users username for login
    * @param {Password} password - Users password for login
    */
-  async getUser (username, password) {
+  async getUser (email, password) {
     // Route && Request Parameters
-    const response = await this.api('/users', 'GET', null, true, { username, password });
+    const response = await this.api('/users', 'GET', null, true, { email, password });
 
     // Authenticate the users login
     if (response.status === 200) {
-      return response.json().then(data => data);
+      return response.json()
+        .then(data => {
+          // console.log(data);
+          // console.log(data.currentUser);
+          return data;
+        });
     } else if (response.status === 401) {
-      return null;
+      return response.json();
     } else {
       throw new Error('There was an issue when attempting to get this user.');
     }
@@ -94,7 +107,7 @@ export default class Data {
 
   /**
    * Retrieves an Idividual Course from the API
-   * @param {Number} id - Course ID Number
+   * @param {Integer} id - Course ID Number
    */
   async getCourse(id) {
     // Route && Request Parameters
@@ -115,21 +128,22 @@ export default class Data {
   /**
    * POSTS New Course Data to the API
    * @param {Object} courseInfo - Course Object to be added to DB
+   * @param {Object} credentials - Users credential login info
    */
-  async createCourse (courseInfo, username, password) {
+  async createCourse (courseInfo, credentials) {
     // Route && Request Parameters
-    const response = await this.api('/courses', 'POST', courseInfo, true, { username, password });
+    const response = await this.api('/courses', 'POST', courseInfo, true, credentials);
 
     // Validate the response from the API for the client
     if (response.status === 201) {
-      return [];
+      return response.location;
     } else if (response.status === 400) {
       return response.json().then(data => {
         return data.errors;
       });
     } else if (response.status === 403) {
       return response.json().then(data => {
-        return data.message.client;
+        return data.message;
       });
     } else {
       throw new Error('There was an issue when attempting to create the course.');
@@ -138,37 +152,46 @@ export default class Data {
 
   /**
    * PUT - Updates the currently selected course
-   * @param {Number} id - Course ID number
+   * @param {Integer} id - Course ID number
    * @param {Object} courseInfo - Request Body info
+   * @param {Object} credentials - Users credential login info
    */
-  async updateCourse (id, courseInfo, username, password) {
+  async updateCourse (id, courseInfo, credentials) {
     // Route && Request Parameters
-    const response = await this.api(`/courses/${id}`, 'PUT', courseInfo, true, { username, password });
+    const response = await this.api(`/courses/${id}`, 'PUT', courseInfo, true, credentials);
 
     // Validate the response from the API for the client
     if (response.status === 204) {
       return [];
     } else if (response.status === 404) {
-      return response.json().then(data => {
-        return data.message.client;
-      });
+      return response.json()
+      .then(data => {
+        return data.message;
+      });      
     } else if (response.status === 400) {
-      return response.json().then(data => {
-        return data.message.client;
-      });
+      return response.json()
+        .then(data => {
+          return data.errors;
+        });
     } else if (response.status === 403) {
-      return response.json().then(data => {
-        return data.message.client;
+      console.log(response);
+      return response.json()
+        .then(data => {
+        return data.message;
       });
     } else {
       throw new Error('There was an issue attempting to update the course.');
     }
   }
 
-
-  async deleteCourse (id, username, password) {
+  /**
+   * DELETE - Deletes a selected Course from
+   * @param {Integer} id - Course ID Number
+   * @param {Object} credentials - Users credential login info
+   */
+  async deleteCourse (id, credentials) {
     // Route && Request Parameters
-    const response = await this.api(`/courses/${id}`, 'DELETE', null, true, { username, password });
+    const response = await this.api(`/courses/${id}`, 'DELETE', null, true, credentials);
 
     // Validate the response from the API for the client
     if (response.status === 204) {
