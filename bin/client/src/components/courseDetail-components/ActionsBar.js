@@ -17,6 +17,8 @@ export default (props) => {
         {/* Ternary operator to only display update and delete options to the users who own the course
         otherwise they will only be shown a link to return to the course list */}
 
+        {/* `/courses/${match.params.id}/update`, */}
+
         {
           
           (authUser !== null && authUser.id === courseUserID) ?
@@ -24,7 +26,13 @@ export default (props) => {
             <span>
               <Link 
                 className="button"
-                to={`/courses/${match.params.id}/update`}>Update Course</Link>
+                to={{
+                  pathname: (authUser.id === courseUserID) ? `/courses/${match.params.id}/update` : '/foribidden',
+                  state: {
+                    courseUserId: courseUserID || null,
+                    currentUser: authUser.id || null,
+                  }
+                  }}>Update Course</Link>
               <Link 
                 className="button"
                 to={{

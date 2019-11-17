@@ -62,17 +62,21 @@ export default class UpdateCourse extends Component {
   }
 
   // Get the intial course getails from the API
-  getCourseDetails () {
+  async getCourseDetails () {
     const { context } = this.props;
+    const authUser = context.authenticatedUser;
 
     // Set the intial state from what was retrieved from the API
-    context.actions.generateCourseDetail(this.props.match.params.id)
+    await context.actions.generateCourseDetail(this.props.match.params.id)
       .then((data) => {
 
         if (data === 'Sorry we cannot find that course.') {
-          console.log("The course you are looking for does not exist: ",data);
+          console.info("The course you are looking for does not exist: ",data);
 
           this.props.history.push('/not-found');
+        } else if (authUser.id !== data.userId) {
+          console.info("Unauthorized access attempt by: ", authUser)
+          this.props.history.push('/forbidden');
         } else {
           this.setState(() => {
             return {
@@ -85,13 +89,13 @@ export default class UpdateCourse extends Component {
               firstName: data.User.firstName,
               lastName: data.User.lastName,
               emailAddress: data.User.emailAddress
-            }            
+            }
           });
-        }
+          }
       })
       .catch(err => {
         // Push the user to the error route if the API crashes
-        console.log("There was an error retreiving course details to edit with the Update Course Component: ",err);
+        console.info("There was an error retreiving course details to edit with the Update Course Component: ",err);
         this.props.history.push("/error");
       });    
   }
@@ -130,12 +134,10 @@ export default class UpdateCourse extends Component {
           if (errors === "The user information that you entered does not match what we have in our records for the owner of this course."){
             this.props.history.push("/forbidden");
           } else {
-            console.log(errors);
             this.setState({ errors });
           }
           
         } else {
-          console.log(this.state);
           this.setState(() => {
             return {
             title: updatedCourse.title,

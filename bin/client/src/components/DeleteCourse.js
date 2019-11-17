@@ -10,7 +10,7 @@ export default class DeleteCourse extends React.PureComponent {
   const authUser = context.authenticatedUser.data;
 
   // Deletes the course from the database
-  const delCourse = () => {
+  const delCourse = async () => {
 
     if (this.props.location.state === undefined) {
       this.props.history.push('/forbidden');
@@ -19,8 +19,8 @@ export default class DeleteCourse extends React.PureComponent {
     } else if (this.props.location.state.currentUser === undefined || this.props.location.state.currentUser === null) {
       this.props.history.push('/forbidden');
     }else {
-      context.actions.deleteCourse(courseId, authUser);
-      this.props.history.push("/courses", "deleteCourse");
+      await context.actions.deleteCourse(courseId, authUser)
+        .then(() => this.props.history.push("/courses", "deleteCourse"));
     }
   }
 
