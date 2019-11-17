@@ -62,8 +62,9 @@ router.post('/users', MW.createUserCheck, MW.asyncHandler(async (req, res) => {
     if(error.name === 'SequelizeUniqueConstraintError') {
       // Send message back to client
       res.status(400).json({
-        errors: 
-          `${error.errors[0].message}, please enter another email address (${error.errors[0].instance.emailAddress}) is already taken.`
+        errors: [
+          `Username must be unique, please enter another "email address" (${error.errors[0].instance.emailAddress}) is already taken.`
+          ]
         });
     } else {
       res.status(500).send(error);

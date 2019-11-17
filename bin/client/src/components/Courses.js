@@ -4,41 +4,10 @@ import CourseContainer from './course-components/CourseContainer'
 // Generates the Courses from the Database
 export default class Courses extends Component {
 
-  // constructor(props) {
-  //   super(props)
-  //   this.state.courseList = React.createRef();
-  //   console.log(props);
-  // }
-
   state = {
     courseList: [],
     externalData: null,
   }
-
-  // getSnapshotBeforeUpdate(prevState, currState) {
-  // }
-
-  checkForUpdates () {
-    // const { courseList } = this.state;
-    // const courseArrayLength = courseList.length;
-
-    console.log(this.props.location.state);
-
-    if (this.props.location.state === "deleteCourse") {
-      this.forceUpdate();
-    }
-
-    // if (courseArrayLength === courseArrayLength) {
-    //   return false;
-    // } else if () {
-
-    // } else {
-
-    // }
-
-  }
-
-  // const { from } = this.props.location.state || { from: { pathname: '/courses' } };
 
   // Renders the initial list of courses
   async componentDidMount() {
@@ -51,37 +20,12 @@ export default class Courses extends Component {
         this.setState({ externalData });
       }
     );
-
-    // if (this.props.location.state == "deleteCourse") {
-    //   this._fetchCourses = this.getCourseList();
-    // }
-
-    // await this.forceUpdate();
-    // await this.checkForUpdates();
-    // console.log(this.state);
   }
-
-  // Re-Renders the list of courses after deleting/updating
-  // componentWillUpdate() {
-    
-  // }
-
-  // componentWillUnmount() {
-  //   if (this._fetchCourses) {
-  //     this._fetchCourses.cancel();
-  //   }
-  // }
 
   // Passes the data through props
   render () {
 
-    // const courseArrayLength = this.state.courseList.length;
-    // console.log(courseArrayLength);
-
-    
-
     const { courseList } = this.state;
-    // console.log(courseList.length);
 
     let container;
 
@@ -107,11 +51,6 @@ export default class Courses extends Component {
       <div>
         { container }
       </div>
-      // <div className="bounds">
-      //   <CourseContainer 
-      //     courseList={courseList}
-      //   />
-      // </div>
     );
   }
 
@@ -133,5 +72,4 @@ export default class Courses extends Component {
         this.props.history.push("/error");
       });
   }
-
 }
