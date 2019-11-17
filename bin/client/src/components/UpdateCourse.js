@@ -127,8 +127,8 @@ export default class UpdateCourse extends Component {
     await context.actions.updateCourse(id, updatedCourse, authUser)
       .then(errors => {
         if (errors.length) {
-          if (errors === 403){
-            this.props.history.push("/unauthorized");
+          if (errors === "The user information that you entered does not match what we have in our records for the owner of this course."){
+            this.props.history.push("/forbidden");
           } else {
             console.log(errors);
             this.setState({ errors });

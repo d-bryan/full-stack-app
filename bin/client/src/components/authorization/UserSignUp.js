@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import Form from './Form';
+import Form from '../Form';
 
 // User Sign Up class that allows users to create a login
 export default class UserSignUp extends Component {

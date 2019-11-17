@@ -175,10 +175,10 @@ export default class Data {
         });
     } else if (response.status === 403) {
       console.log(response);
-      return response.json();
-      //   .then(data => {
-      //   return data.message;
-      // });
+      return response.json()
+        .then(data => {
+        return data.message;
+      });
     } else {
       throw new Error('There was an issue attempting to update the course.');
     }
