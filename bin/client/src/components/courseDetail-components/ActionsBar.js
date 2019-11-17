@@ -7,6 +7,7 @@ export default (props) => {
   const authUser = props.context.authenticatedUser;
   const match = props.match;
   const courseUserID = props.userId;
+  console.log(props);
 
   return (
     <div className="actions--bar">
@@ -21,15 +22,29 @@ export default (props) => {
           (authUser !== null && authUser.id === courseUserID) ?
           <React.Fragment>
             <span>
-              <Link className="button" to={`/courses/${match.params.id}/update`}>Update Course</Link>
-              <Link className="button" to={`/courses/${match.params.id}/delete`}>Delete Course</Link>
-              <Link className="button" to={`/courses/`}>Return to Courses</Link>
+              <Link 
+                className="button"
+                to={`/courses/${match.params.id}/update`}>Update Course</Link>
+              <Link 
+                className="button"
+                to={{
+                  pathname: `/courses/${match.params.id}/delete`,
+                  state: { 
+                    courseUserId: courseUserID || null,
+                    currentUser: authUser.id || null,
+                    },
+                  }}>Delete Course</Link>
+              <Link 
+                className="button" 
+                to={`/courses/`}>Return to Courses</Link>
             </span>
           </React.Fragment>
           :
           <React.Fragment>
             <span>
-              <Link className="button button-secondary" to="/courses">Return to List</Link>
+              <Link 
+                className="button button-secondary" 
+                to="/courses">Return to List</Link>
             </span>
           </React.Fragment>
         }

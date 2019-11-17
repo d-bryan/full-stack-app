@@ -12,7 +12,7 @@ export default () => (
           <a href="/courses" > here </a>
           to go back to the course list.
         </p>        
-        <img src={image_500} width="320" height="203" />
+        <img src={image_500} width="320" height="203" alt="500 error" />
       </div>
     </div>
   </div>

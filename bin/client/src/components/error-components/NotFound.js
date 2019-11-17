@@ -15,7 +15,7 @@ export default () => (
           <a href="/courses" > here </a>
           to go back to the course list.
         </p>
-        <img src={image_404} height="203" width="320"/>
+        <img src={image_404} height="203" width="320" alt="404 not found" />
       </div>
     </div>
   </div>

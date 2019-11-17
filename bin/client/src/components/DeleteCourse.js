@@ -11,10 +11,17 @@ export default class DeleteCourse extends React.PureComponent {
 
   // Deletes the course from the database
   const delCourse = () => {
-    // const { from } = this.props.location.state || { from: { pathname: '/courses' } };
 
-    context.actions.deleteCourse(courseId, authUser);
-    this.props.history.push("/courses", "deleteCourse");
+    if (this.props.location.state === undefined) {
+      this.props.history.push('/forbidden');
+    } else if (this.props.location.state.courseUserId === undefined || this.props.location.state.courseUserId === null) {
+      this.props.history.push('/forbidden');
+    } else if (this.props.location.state.currentUser === undefined || this.props.location.state.currentUser === null) {
+      this.props.history.push('/forbidden');
+    }else {
+      context.actions.deleteCourse(courseId, authUser);
+      this.props.history.push("/courses", "deleteCourse");
+    }
   }
 
   // Sends the user back to the course details page
