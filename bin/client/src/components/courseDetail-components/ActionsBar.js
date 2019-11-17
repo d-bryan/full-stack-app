@@ -7,7 +7,7 @@ export default (props) => {
   const authUser = props.context.authenticatedUser;
   const match = props.match;
   const courseUserID = props.userId;
-  console.log(props);
+  
 
   return (
     <div className="actions--bar">

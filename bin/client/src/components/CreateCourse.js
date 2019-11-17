@@ -68,6 +68,9 @@ export default class CreateCourse extends Component {
         if (errors.length) {
           this.setState({ errors });
         } else {
+          // redirect the user back to the courses route upon submission
+          this.props.history.push('/courses');
+          
           this.setState(() => {
             return {
             title: createdCourse.title,
@@ -90,8 +93,6 @@ export default class CreateCourse extends Component {
         console.log("There was an Error while creating the course: ",err);
         this.props.history.push("/error");
       });
-      // redirect the user back to the courses route upon submission
-      this.props.history.push('/courses');
   }
 
   // Set the state for the Form on Change

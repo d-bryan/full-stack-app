@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import image_404 from '../../assets/img/404.jpg';
 
 export default () => (
@@ -12,7 +13,7 @@ export default () => (
         <br/>
         the little girl having an awesome day with a Lion</p>
         <p>Click
-          <a href="/courses" > here </a>
+          <Link to="/courses" > here </Link>
           to go back to the course list.
         </p>
         <img src={image_404} height="203" width="320" alt="404 not found" />

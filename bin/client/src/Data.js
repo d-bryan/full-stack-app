@@ -59,12 +59,10 @@ export default class Data {
     if (response.status === 200) {
       return response.json()
         .then(data => {
-          // console.log(data);
-          // console.log(data.currentUser);
           return data;
         });
     } else if (response.status === 401) {
-      return response.json();
+      return null;
     } else {
       throw new Error('There was an issue when attempting to get this user.');
     }
