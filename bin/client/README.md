@@ -14,7 +14,7 @@ If you are not testing new features it is recommended that you download the `sta
 
 Before proceeding ensure that you have setup the `API` section of this project as it makes calls to an API also. 
 
-Find the instructions to setting up the API [here](./api/README.md)
+Find the instructions to setting up the API [here](../api/README.md)
 
 ## Usage
 
