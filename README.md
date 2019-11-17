@@ -1,9 +1,5 @@
 # Full Stack App with React and a REST API
 
-## Table of Contents
-
-[TOC]
-
 ## Additional README
 
 ####  [React Client](./bin/client/README.md)

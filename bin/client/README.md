@@ -1,7 +1,5 @@
 # React Client
 
-[TOC]
-
 ## Setup 
 
 ### `Node JS` is required to run this project
