@@ -1,8 +1,6 @@
 
 # EXPRESS REST API
 
-[TOC]
-
 ## Setup 
 
 ### `Node JS` is required to run this project
