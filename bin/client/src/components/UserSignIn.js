@@ -2,13 +2,17 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Form from './Form';
 
+// User Sign In class that contains form element to submit credentials to API
 export default class UserSignIn extends Component {
+
+  // set the intial state
   state = {
     emailAddress: '',
     password: '',
     errors: [],
   }
 
+  // render the user payload to the props
   render() {
     const {
       emailAddress,
@@ -51,6 +55,7 @@ export default class UserSignIn extends Component {
     );
   }
 
+  // set the new state of the user from the Form login page
   change = (event) => {
     const name = event.target.name;
     const value = event.target.value;
@@ -62,6 +67,8 @@ export default class UserSignIn extends Component {
     });
   }
 
+  // send the user payload to the API and sign in the user
+  // redirect to the previous page they came from or send them to /courses
   submit = () => {
     const { context } = this.props;
     const { from } = this.props.location.state || { from: { pathname: '/courses' } };

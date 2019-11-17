@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
 
+// Lists out the Details for the Course and displays them to the User
 export default (props) => {
 
   return (

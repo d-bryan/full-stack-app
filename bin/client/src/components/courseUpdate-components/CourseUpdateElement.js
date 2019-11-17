@@ -1,8 +1,8 @@
 import React from 'react';
 import Form from '../Form';
 
+// Anonymous Component that Course Update uses to Update
 export default (props) => {
-
   return (
     <div className="bounds course--detail">
       <h1>Update Course</h1>
@@ -39,14 +39,6 @@ export default (props) => {
                   onChange={props.handleChange}
                 >
                 </textarea>
-                  {/* <ReactMarkdown
-                    id="description"
-                    name="description"
-                    className=""
-                    source={props.description}
-                    onChange={props.handleChange}
-                    escapeHtml={false}
-                  /> */}
                 </div>
               </div>
             </div>
@@ -77,14 +69,6 @@ export default (props) => {
                       onChange={props.handleChange}
                     >
                     </textarea>
-                      {/* <ReactMarkdown
-                        id="materialsNeeded" 
-                        name="materialsNeeded" 
-                        className=""                         
-                        source={props.materialsNeeded}
-                        onChange={props.materialsNeeded}
-                        escapeHtml={false}
-                      /> */}
                     </div>
                   </li>
                 </ul>

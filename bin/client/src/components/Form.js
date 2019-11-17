@@ -1,5 +1,6 @@
 import React from 'react';
 
+// Create the Form template for later user in other components
 export default (props) => {
   const {
     cancel,
@@ -9,11 +10,13 @@ export default (props) => {
     elements,
   } = props;
 
+  // pass the submit on to props
   function handleSubmit(event) {
     event.preventDefault();
     submit();
   }
 
+  // pass the cancel on to props
   function handleCancel(event) {
     event.preventDefault();
     cancel();
@@ -33,6 +36,7 @@ export default (props) => {
   );
 }
 
+// Displays the Errors to the user that are sent back from the API
 function ErrorsDisplay({ errors }) {
   let errorsDisplay = null;
 

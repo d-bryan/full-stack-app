@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import CourseCreateElement from './courseCreate-components/CourseCreateElement';
 
-
-
+// Create Class that allows user to create new Courses
 export default class CreateCourse extends Component {
 
+  // Set the intial state value
   state = {
     title: '',
     description: '',
@@ -13,8 +13,8 @@ export default class CreateCourse extends Component {
     errors: [],
   }
 
+  // Render the element and pass props 
   render () {
-
 
     return (
       <div>
@@ -32,24 +32,27 @@ export default class CreateCourse extends Component {
     );
   }
 
+  // allow the user to return to courses route
   cancel = () => {
     this.props.history.push(`/courses`);
   }
 
+  // submit function that creates a new course and posts to the API
   submit = async () => {
-    // console.log('hello');
     const { context } = this.props;
     const authUser = context.authenticatedUser.data;
+    const userName = context.authenticatedUser.firstName;
     const userId = context.authenticatedUser.id;
 
+    // Destructure state to be used when submitting to API
     const { 
       title,
       description,
       estimatedTime,
       materialsNeeded,
-      errors
     } = this.state;
 
+    // New created course to be submitted to the API
     const createdCourse = {
       title,
       description,
@@ -58,10 +61,10 @@ export default class CreateCourse extends Component {
       userId
     };
 
-    console.log(authUser);
-
+    // Create the new course and send to the API
     await context.data.createCourse(createdCourse, authUser)
       .then(errors => {
+        // If there are errors display them to the user before allowing submission
         if (errors.length) {
           this.setState({ errors });
         } else {
@@ -74,19 +77,24 @@ export default class CreateCourse extends Component {
             userId: createdCourse.userId
             }
           });
-
-          console.log(this.props.location.pathname);
-
+          console.log(`${userName} created a new course: \n
+          title: ${createdCourse.title} \n
+          description: ${createdCourse.description} \n
+          estimatedTime: ${createdCourse.estimatedTime} \n
+          materialsNeeded: ${createdCourse.materialsNeeded} \n
+          userId: ${createdCourse.userId}`);
         }
       })
-      .then(res => console.log(res.location))
       .catch(err => {
-        console.log(err);
+        // Send the User to the errors route if there was an error creating a new course and log info to the console
+        console.log("There was an Error while creating the course: ",err);
+        this.props.history.push("/error");
       });
-    
-      // this.props.history.push(`/courses/${this.props.match.params.id}`);
+      // redirect the user back to the courses route upon submission
+      this.props.history.push('/courses');
   }
 
+  // Set the state for the Form on Change
   change = (event) => {
     const name = event.target.name;
     const value = event.target.value;

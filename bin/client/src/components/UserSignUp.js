@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Form from './Form';
 
+// User Sign Up class that allows users to create a login
 export default class UserSignUp extends Component {
+
+  // set the initial state
   state = {
     firstName: '',
     lastName: '',
@@ -11,6 +14,7 @@ export default class UserSignUp extends Component {
     errors: [],
   }
 
+  // Render the element and pass props
   render() {
     const {
       firstName,
@@ -69,6 +73,7 @@ export default class UserSignUp extends Component {
     );
   }
 
+  // Set the state for the form on Change
   change = (event) => {
     const name = event.target.name;
     const value = event.target.value;
@@ -80,6 +85,7 @@ export default class UserSignUp extends Component {
     });
   }
 
+  // submit functions that sends the new user request to the API
   submit = () => {
     const { context } = this.props;
 
@@ -98,6 +104,7 @@ export default class UserSignUp extends Component {
       password,
     };
 
+    // Create the new User and send it to the API
     context.data.createUser(user)
       .then(errors => {
         if (errors.length) {
@@ -117,6 +124,7 @@ export default class UserSignUp extends Component {
 
   }
 
+  // Return the User to the courses route
   cancel = () => {
     this.props.history.push('/');
   }

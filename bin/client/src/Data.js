@@ -136,7 +136,7 @@ export default class Data {
 
     // Validate the response from the API for the client
     if (response.status === 201) {
-      return response.location;
+      return response;
     } else if (response.status === 400) {
       return response.json().then(data => {
         return data.errors;
@@ -175,10 +175,10 @@ export default class Data {
         });
     } else if (response.status === 403) {
       console.log(response);
-      return response.json()
-        .then(data => {
-        return data.message;
-      });
+      return response.json();
+      //   .then(data => {
+      //   return data.message;
+      // });
     } else {
       throw new Error('There was an issue attempting to update the course.');
     }

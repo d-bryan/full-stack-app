@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-
+// Action bar to determine whether or not a user has authentication and where to send them
 export default (props) => {
 
   const authUser = props.context.authenticatedUser;
