@@ -27,7 +27,7 @@ export default (props) => {
               <Link 
                 className="button"
                 to={{
-                  pathname: (authUser.id === courseUserID) ? `/courses/${match.params.id}/update` : '/foribidden',
+                  pathname: `/courses/${match.params.id}/update`,
                   state: {
                     courseUserId: courseUserID || null,
                     currentUser: authUser.id || null,

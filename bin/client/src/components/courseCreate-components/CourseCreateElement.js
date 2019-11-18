@@ -28,7 +28,6 @@ export default (props) => {
                     onChange={props.change}
                   />
                 </div>
-                <p>By Joe Smith</p>
               </div>
               <div className="course--description">
                 <div>
