@@ -3,6 +3,10 @@ import Form from '../Form';
 
 // Anonymous component that Create Course uses to submit new courses
 export default (props) => {
+
+  // get the authenticated user for use in the paragraph "By" tag
+  const authUser = props.context.authenticatedUser || '';
+
   return (
     <div className="bounds course--detail">
       <h1>Create Course</h1>
@@ -28,6 +32,7 @@ export default (props) => {
                     onChange={props.change}
                   />
                 </div>
+                <p>{`By ${authUser.firstName} ${authUser.lastName}`}</p>
               </div>
               <div className="course--description">
                 <div>

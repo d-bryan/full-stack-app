@@ -16,9 +16,12 @@ export default class CreateCourse extends Component {
   // Render the element and pass props 
   render () {
 
+    const { context } = this.props;
+
     return (
       <div>
-        <CourseCreateElement 
+        <CourseCreateElement
+          context={context}
           title={this.state.title}
           description={this.state.description}
           estimatedTime={this.state.estimatedTime}
