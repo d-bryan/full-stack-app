@@ -12,8 +12,6 @@ export default class Courses extends Component {
   // Renders the initial list of courses
   async componentDidMount() {
 
-    console.log(this.props.location.state);
-
     this._fetchCourses = await this.getCourseList().then(
       externalData => {
         this._fetchCourses = null;

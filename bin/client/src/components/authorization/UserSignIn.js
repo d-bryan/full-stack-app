@@ -71,8 +71,9 @@ export default class UserSignIn extends Component {
   // redirect to the previous page they came from or send them to /courses
   submit = () => {
     const { context } = this.props;
-    const { from } = this.props.location.state || { from: { pathname: '/courses' } };
+    const { from } = this.props.location.state || { from: this.props.history.goBack() };
     const { emailAddress, password } = this.state;
+
     context.actions.signIn(emailAddress, password)
       .then( user => {
         if (user === null) {
